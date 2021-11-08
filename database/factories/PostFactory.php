@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
+use App\Models\Account;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PostFactory extends Factory
@@ -20,7 +20,7 @@ class PostFactory extends Factory
             'body' => $this->faker->text(),
             'social_media_id' => rand(1,2),
             'link' => $this->faker->url(),
-            'user_id' => User::factory(),
+            'account_id' => Account::factory(),
         ];
     }
 }

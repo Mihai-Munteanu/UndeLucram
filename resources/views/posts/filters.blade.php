@@ -35,14 +35,28 @@
                     </select>
                 </div>
                 <div class="text-secondary ">
-                    <label class="my-2 " for="author" class="form-label">Author</label>
+                    <label class="my-2 " for="author" class="form-label">UserName</label>
                     <select class="form-select" name="author" id="author">
                         <option value="{{ NULL }}">Select</option>
+
                         @foreach ($authors as $author)
-                           <option value="{{ $author->id }}"
+                            <option value="{{ $author->id }}"
                                 {{ request('author') == $author->id ? "selected='selected'" : ''}}
                                 >
-                                {{ $author->name }}
+                                {{ $author->user_name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="text-secondary ">
+                    <label class="my-2 " for="user" class="form-label">Author</label>
+                    <select class="form-select" name="user" id="user">
+                        <option value="{{ NULL }}">Select</option>
+                        @foreach ($users as $user)
+                           <option value="{{ $user->id }}"
+                                {{ request('user') == $user->id ? "selected='selected'" : ''}}
+                                >
+                                {{ $user->name }}
                             </option>
                         @endforeach
                     </select>
@@ -61,10 +75,10 @@
                     </select>
                 </div>
                 <div class="my-4 d-flex justify-content-between">
-                    <a href="/posts" type="" class="btn btn-outline-secondary px-3">
+                    <a href="/posts" type="" class="px-3 btn btn-outline-secondary">
                         Clear filters
                     </a href="/posts">
-                    <button type="submit" class="btn btn-outline-primary px-3">
+                    <button type="submit" class="px-3 btn btn-outline-primary">
                         Search
                     </button>
                 </div>

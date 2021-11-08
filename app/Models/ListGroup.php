@@ -9,7 +9,7 @@ class ListGroup extends Model
 {
     use HasFactory;
 
-    public function authors()
+    public function user()
     {
         return $this->belongsToMany(User::class);
     }

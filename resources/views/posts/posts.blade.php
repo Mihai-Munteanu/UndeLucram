@@ -1,6 +1,6 @@
 <div class="overflow-auto col-8" style="height: 85vh;">
     @if($posts->isEmpty())
-        <div class="text-secondary text-center mt-5 ">
+        <div class="mt-5 text-center text-secondary ">
             <span class="fst-italic">
                 No posts available
             </span>
@@ -20,7 +20,8 @@
                 </a>
             </div>
             <div>
-                @foreach($post->author->listGroups as $list)
+                {{-- {{ \Log::info(($post->author->user->listGroups)) }} --}}
+                @foreach($post->author->user->listGroups as $list)
                     <span class="badge rounded-pill bg-success">
                         {{ $list->name }}
                     </span>
@@ -28,7 +29,8 @@
             </div>
             <div class="flex-row my-0 mb-0 d-flex justify-content-end">
                 <span class="fw-light">
-                    <a href="?author={{ $post->author->id }}">{{ $post->author->name }}</a>
+                    <a href="?user={{ $post->author->user->id }}">{{ $post->author->user->name }}</a>
+                    (<a href="?author={{ $post->author->id }}">{{ $post->author->user_name }}</a>)
                 </span>
                 &nbsp;
                 <span class="fw-light fst-italic">

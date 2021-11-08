@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Account;
 use App\Models\ListGroup;
 use App\Models\Post;
 use App\Models\SocialMedia;
@@ -18,13 +19,18 @@ class PostController extends Controller
     public function index(Request $request)
     {
         $posts = Post::latest('date')
-            ->with('author:id,name', 'socialMedia:id,name', 'author.listGroups:id,name')
-            ->filter(request(['search', 'author','socialMedia','listGroup', 'dateStart', 'dateEnd', 'author']))
+            ->with(
+                // 'author:id,user_name',
+                 'socialMedia:id,name', 'author.user:id,name', 'author.user.listGroups:id,name')
+            ->filter(request(['search', 'author', 'user', 'socialMedia','listGroup', 'dateStart', 'dateEnd', 'author']))
             ->paginate(10);
 
         $data = $request->all();
 
-        $authors = User::orderBy('name')
+        $authors = Account::orderBy('user_name')
+            ->get(['id', 'user_name']);
+
+        $users = User::orderBy('name')
             ->get(['id', 'name']);
 
         $listGroups = ListGroup::orderBy('name')
@@ -40,6 +46,7 @@ class PostController extends Controller
             'posts' => $posts,
             'data' => $data,
             'authors' => $authors,
+            'users' => $users,
             'listGroups' => $listGroups,
             'socialMedia' => $socialMedia,
             'dateStart' => $dateStart,

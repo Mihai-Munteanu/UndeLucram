@@ -15,7 +15,7 @@ class Post extends Model
 
     public function author()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(Account::class, 'account_id');
     }
 
     public function socialMedia()
@@ -33,8 +33,16 @@ class Post extends Model
             })
         );
 
+        $query->when($filters['user'] ?? false, fn  ($query, $user)  =>
+            $query->whereHas('author', fn ($query) =>
+                $query->whereHas('user', fn ($query) =>
+                    $query->where('user_id', $user)
+                )
+            )
+        );
+
         $query->when($filters['author'] ?? false, fn ($query, $author) =>
-            $query->where('user_id', $author)
+            $query->where('account_id', $author)
         );
 
         $query->when($filters['socialMedia'] ?? false, fn ($query, $media) =>
@@ -50,11 +58,13 @@ class Post extends Model
         );
 
         $query->when($filters['listGroup'] ?? false, fn ($query, $listGroup) =>
-            $query->whereHas('author', function($query) use($listGroup) {
-                $query->whereHas('listGroups', function($query) use($listGroup) {
-                    $query->where('list_groups.id', $listGroup);
-                });
-            })
+            $query->whereHas('author', fn ($query) =>
+                $query->whereHas('user', fn ($query) =>
+                    $query->whereHas('listGroups', fn ($query) =>
+                        $query->where('list_groups.id', $listGroup)
+                    )
+                )
+            )
         );
     }
 }

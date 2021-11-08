@@ -1,10 +1,10 @@
 <x-main>
     <div class="container mt-3 bg-white w-100">
         <div class="rounded shadow-sm row row-cols-3">
-            <div class=" p-2 rounded shadow-sm col-4 text-center text-secondary">
+            <div class="p-2 text-center rounded shadow-sm col-4 text-secondary">
                   <h3>Filters</h3>
             </div>
-            <div class=" p-2 text-center text-secondary rounded shadow-sm col-8">
+            <div class="p-2 text-center rounded shadow-sm text-secondary col-8">
                 <h3>Posts</h3>
             </div>
         </div>
@@ -15,7 +15,7 @@
             @include('posts/posts')
         </div>
         <div class="rounded shadow-sm row">
-            <div class="d-flex justify-content-end px-2 pt-3 ">
+            <div class="px-2 pt-3 d-flex justify-content-end ">
                 {{ $posts->appends($data)->links() }}
             </div>
         </div>
