@@ -9,11 +9,9 @@ class Account extends Model
 {
     use HasFactory;
 
-    protected $with = ['user:id,name'];
-
-    public function user()
+    public function author()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function posts()

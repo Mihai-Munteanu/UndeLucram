@@ -21,12 +21,12 @@ class DatabaseSeeder extends Seeder
             CreateSocialMediaSeeder::class,
         ]);
 
-        User::factory()->count(100)->create()->each(function($user) {
+        User::factory()->count(100)->create()->each(function($author) {
 
             Account::factory()
                 ->count(10)
                 ->hasPosts(10)
-                ->for($user)
+                ->for($author, 'author')
                 ->create();
         });
 

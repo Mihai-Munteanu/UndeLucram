@@ -13,9 +13,9 @@ class Post extends Model
         'date' => 'date:d-m-Y',
     ];
 
-    public function author()
+    public function account()
     {
-        return $this->belongsTo(Account::class, 'account_id');
+        return $this->belongsTo(Account::class);
     }
 
     public function socialMedia()
@@ -33,20 +33,20 @@ class Post extends Model
             })
         );
 
-        $query->when($filters['user'] ?? false, fn  ($query, $user)  =>
-            $query->whereHas('author', fn ($query) =>
-                $query->whereHas('user', fn ($query) =>
-                    $query->where('user_id', $user)
+        $query->when($filters['authorId'] ?? false, fn  ($query, $authorId)  =>
+            $query->whereHas('account', fn ($query) =>
+                $query->whereHas('author', fn ($query) =>
+                    $query->where('user_id', $authorId)
                 )
             )
         );
 
-        $query->when($filters['author'] ?? false, fn ($query, $author) =>
-            $query->where('account_id', $author)
+        $query->when($filters['accountId'] ?? false, fn ($query, $accountId) =>
+            $query->where('account_id', $accountId)
         );
 
-        $query->when($filters['socialMedia'] ?? false, fn ($query, $media) =>
-            $query->where('social_media_id', $media)
+        $query->when($filters['socialMediaId'] ?? false, fn ($query, $mediaId) =>
+            $query->where('social_media_id', $mediaId)
         );
 
         $query->when($filters['dateStart'] ?? false, fn ($query, $dateStart) =>
@@ -57,11 +57,11 @@ class Post extends Model
             $query->where('date', '<=' , $dateEnd)
         );
 
-        $query->when($filters['listGroup'] ?? false, fn ($query, $listGroup) =>
-            $query->whereHas('author', fn ($query) =>
-                $query->whereHas('user', fn ($query) =>
+        $query->when($filters['listGroupId'] ?? false, fn ($query, $listGroupId) =>
+            $query->whereHas('account', fn ($query) =>
+                $query->whereHas('author', fn ($query) =>
                     $query->whereHas('listGroups', fn ($query) =>
-                        $query->where('list_groups.id', $listGroup)
+                        $query->where('list_groups.id', $listGroupId)
                     )
                 )
             )

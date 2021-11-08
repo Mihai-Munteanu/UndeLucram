@@ -21,7 +21,7 @@ class CreateListGroupSeeder extends Seeder
 
             $listGroup ->save();
 
-            $listGroup->user()->sync([
+            $listGroup->author()->sync([
                 rand(1, 100),
                 rand(1, 100),
                 rand(1, 100),

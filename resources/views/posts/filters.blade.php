@@ -21,13 +21,13 @@
                     </div>
                 </div>
                 <div class="text-secondary ">
-                    <label class="my-2 " for="socialMedia" class="form-label">Social Media</label>
-                    <select class="form-select" name="socialMedia" id="socialMedia"
+                    <label class="my-2 " for="socialMediaId" class="form-label">Social Media</label>
+                    <select class="form-select" name="socialMediaId" id="socialMediaId"
                     >
                         <option value="{{ NULL }}">Select</option>
                         @foreach ($socialMedia as $media)
                            <option value="{{ $media->id }}"
-                                {{ request('socialMedia') == $media->id ? "selected='selected'" : ''}}
+                                {{ request('socialMediaId') == $media->id ? "selected='selected'" : ''}}
                                  >
                                 {{ $media->name }}
                             </option>
@@ -35,39 +35,39 @@
                     </select>
                 </div>
                 <div class="text-secondary ">
-                    <label class="my-2 " for="author" class="form-label">UserName</label>
-                    <select class="form-select" name="author" id="author">
+                    <label class="my-2 " for="accountId" class="form-label">UserName</label>
+                    <select class="form-select" name="accountId" id="accountId">
                         <option value="{{ NULL }}">Select</option>
 
-                        @foreach ($authors as $author)
-                            <option value="{{ $author->id }}"
-                                {{ request('author') == $author->id ? "selected='selected'" : ''}}
+                        @foreach ($accounts as $account)
+                            <option value="{{ $account->id }}"
+                                {{ request('accountId') == $account->id ? "selected='selected'" : ''}}
                                 >
-                                {{ $author->user_name }}
+                                {{ $account->user_name }}
                             </option>
                         @endforeach
                     </select>
                 </div>
                 <div class="text-secondary ">
-                    <label class="my-2 " for="user" class="form-label">Author</label>
-                    <select class="form-select" name="user" id="user">
+                    <label class="my-2 " for="authorId" class="form-label">Author</label>
+                    <select class="form-select" name="authorId" id="authorId">
                         <option value="{{ NULL }}">Select</option>
-                        @foreach ($users as $user)
-                           <option value="{{ $user->id }}"
-                                {{ request('user') == $user->id ? "selected='selected'" : ''}}
+                        @foreach ($authors as $author)
+                           <option value="{{ $author->id }}"
+                                {{ request('authorId') == $author->id ? "selected='selected'" : ''}}
                                 >
-                                {{ $user->name }}
+                                {{ $author->name }}
                             </option>
                         @endforeach
                     </select>
                 </div>
                 <div class="text-secondary ">
-                    <label class="my-2 " for="listGroup" class="form-label">List</label>
-                    <select class="form-control" name="listGroup" id="listGroup">
+                    <label class="my-2 " for="listGroupId" class="form-label">List</label>
+                    <select class="form-control" name="listGroupId" id="listGroupId">
                         <option value="{{ NULL }}">Select</option>
                         @foreach ($listGroups as $list)
                            <option value="{{ $list->id }}"
-                                {{ request('listGroup') == $list->id ? "selected='selected'" : ''}}
+                                {{ request('listGroupId') == $list->id ? "selected='selected'" : ''}}
                                 >
                                 {{ $list->name }}
                             </option>

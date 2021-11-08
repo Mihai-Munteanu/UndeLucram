@@ -20,8 +20,7 @@
                 </a>
             </div>
             <div>
-                {{-- {{ \Log::info(($post->author->user->listGroups)) }} --}}
-                @foreach($post->author->user->listGroups as $list)
+                @foreach($post->account->author->listGroups as $list)
                     <span class="badge rounded-pill bg-success">
                         {{ $list->name }}
                     </span>
@@ -29,8 +28,9 @@
             </div>
             <div class="flex-row my-0 mb-0 d-flex justify-content-end">
                 <span class="fw-light">
-                    <a href="?user={{ $post->author->user->id }}">{{ $post->author->user->name }}</a>
-                    (<a href="?author={{ $post->author->id }}">{{ $post->author->user_name }}</a>)
+                    <a href="?authorId={{ $post->account->author->id }}">{{ $post->account->author->name }}</a>
+
+                    (<a href="?accountId={{ $post->account->id }}">{{ $post->account->user_name }}</a>)
                 </span>
                 &nbsp;
                 <span class="fw-light fst-italic">

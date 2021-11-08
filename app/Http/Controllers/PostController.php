@@ -20,24 +20,27 @@ class PostController extends Controller
     {
         $posts = Post::latest('date')
             ->with(
-                // 'author:id,user_name',
-                 'socialMedia:id,name', 'author.user:id,name', 'author.user.listGroups:id,name')
-            ->filter(request(['search', 'author', 'user', 'socialMedia','listGroup', 'dateStart', 'dateEnd', 'author']))
+                'socialMedia:id,name',
+                'account:id,user_name,user_id',
+                'account.author:id,name',
+                'account.author.listGroups:id,name')
+            ->filter(request(['search', 'accountId', 'authorId', 'socialMediaId','listGroupId', 'dateStart', 'dateEnd']))
             ->paginate(10);
 
         $data = $request->all();
 
-        $authors = Account::orderBy('user_name')
+        $accounts = Account::orderBy('user_name')
             ->get(['id', 'user_name']);
 
-        $users = User::orderBy('name')
+        $authors = User::orderBy('name')
             ->get(['id', 'name']);
 
         $listGroups = ListGroup::orderBy('name')
             ->get(['id', 'name'])
             ->sortBy('name', SORT_NATURAL, false);
 
-        $socialMedia = SocialMedia::get(['id', 'name']);
+        $socialMedia = SocialMedia::orderBy('name')
+            ->get(['id', 'name']);
 
         $dateStart = Post::min('date');
         $dateEnd = Post::max('date');
@@ -45,8 +48,8 @@ class PostController extends Controller
         return view('posts', [
             'posts' => $posts,
             'data' => $data,
+            'accounts' => $accounts,
             'authors' => $authors,
-            'users' => $users,
             'listGroups' => $listGroups,
             'socialMedia' => $socialMedia,
             'dateStart' => $dateStart,
